@@ -1,0 +1,62 @@
+.login-page {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-page > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.login-page > div > label {
+  margin-bottom: 8px;
+}
+
+.login-page > div > input {
+  padding: 8px 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.enter {
+  display: flex;
+  margin-top: 22px;
+}
+
+.enter > div {
+  margin-right: 16px;
+}
+
+.enter > button {
+  flex-grow: 1;
+
+  min-height: 36px;
+  font-size: 16px;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
