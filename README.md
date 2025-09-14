@@ -1,46 +1,93 @@
-# Getting Started with Create React App
+# Migração de react-router-dom v5 para v6
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Descrição
 
-## Available Scripts
+Este repositório demonstra exemplos práticos de como migrar aplicações React do `react-router-dom` versão 5 para a versão 6, destacando as principais diferenças, mudanças de sintaxe e melhores práticas. É útil para desenvolvedores que querem atualizar projetos legados aproveitando os recursos mais modernos do React Router.
 
-In the project directory, you can run:
+## Por que migrar para o v6?
 
-### `yarn start`
+- **Rotas mais declarativas e previsíveis**
+- **Performance otimizada**
+- **Suporte nativo a nested routes**
+- **Melhor gerenciamento de parâmetros e buscas**
+- **API simplificada**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Principais Diferenças
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+| v5                                          | v6                                        |
+|----------------------------------------------|-------------------------------------------|
+| `<Switch>`                                  | `<Routes>`                                |
+| `<Route component={Page} />`                 | `<Route element={<Page />} />`            |
+| Uso de `exact`                              | Não é mais necessário `exact`             |
+| `useHistory`, `useLocation`, `useParams`    | `useNavigate`, `useLocation`, `useParams` |
+| Renderização condicional via render/children | Usa `element`                             |
+| Redirect via `<Redirect />`                  | `<Navigate to="/path" />`                 |
 
-### `yarn test`
+## Exemplos de Migração
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Antes (v5)
+```jsx
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+<Router>
+  <Switch>
+    <Route exact path="/" component={Home} />
+    <Route path="/about" render={() => <About />} />
+    <Redirect to="/" />
+  </Switch>
+</Router>
+```
 
-### `yarn build`
+### Depois (v6)
+```jsx
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+<BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/about" element={<About />} />
+    <Route path="*" element={<Navigate to="/" />} />
+  </Routes>
+</BrowserRouter>
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Como usar este projeto
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone o repositório:**
+    ```bash
+git clone https://github.com/fabiocberg/react-router-dom-v5-to-v6.git
+cd react-router-dom-v5-to-v6
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Instale as dependências:**
+    ```bash
+yarn install
+# ou
+npm install
+    ```
 
-### `yarn eject`
+3. **Rode o projeto:**
+    ```bash
+yarn start
+# ou
+npm start
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. **Explore os exemplos de código e compare implementações v5 x v6.**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Outras mudanças importantes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- O hook `useNavigate()` substitui `history.push`/`history.replace`.
+- O fallback de rotas agora é feito via `<Route path="*" ... />`.
+- Parâmetros e buscas continuam via `useParams` e `useSearchParams`, mas com API revisada.
+- Nested routes são declaradas diretamente dentro de `<Route>`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Recursos
 
-## Learn More
+- [Documentação oficial do React Router](https://reactrouter.com/en/main)
+- [Guia de migração v5 para v6](https://reactrouter.com/en/main/start/overview#migrating-from-v5)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Licença
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+MIT
+
+---
+> Sinta-se livre para abrir uma issue ou PR com exemplos adicionais de migração!
